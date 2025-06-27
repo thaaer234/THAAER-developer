@@ -1,0 +1,116 @@
+<div class="module-header">
+    <h2>نظام الحضور والغياب</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="takeAttendanceBtn">
+            <i class="fas fa-clipboard-check"></i> تسجيل الحضور
+        </button>
+        <button class="btn btn-secondary" id="importAttendanceBtn">
+            <i class="fas fa-file-import"></i> استيراد من Excel
+        </button>
+    </div>
+</div>
+
+<div class="filters">
+    <div class="form-row">
+        <div class="form-col">
+            <select id="classFilter" class="form-control">
+                <option value="">اختر الصف</option>
+                <option value="1">الصف الأول</option>
+                <option value="2">الصف الثاني</option>
+                <option value="3">الصف الثالث</option>
+                <option value="4">الصف الرابع</option>
+                <option value="5">الصف الخامس</option>
+                <option value="6">الصف السادس</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <input type="date" id="dateFilter" class="form-control">
+        </div>
+        <div class="form-col">
+            <button class="btn btn-info" id="filterBtn">
+                <i class="fas fa-filter"></i> تصفية
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>الاسم الكامل</th>
+                <th>الصف</th>
+                <th>الحضور</th>
+                <th>التاريخ</th>
+                <th>ملاحظات</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم ملؤها بواسطة JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<!-- نموذج تسجيل الحضور -->
+<div id="attendanceModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>تسجيل الحضور</h3>
+        <form id="attendanceForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="attendanceClass">الصف</label>
+                    <select id="attendanceClass" required>
+                        <option value="">اختر الصف</option>
+                        <option value="1">الصف الأول</option>
+                        <option value="2">الصف الثاني</option>
+                        <option value="3">الصف الثالث</option>
+                        <option value="4">الصف الرابع</option>
+                        <option value="5">الصف الخامس</option>
+                        <option value="6">الصف السادس</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="attendanceDate">التاريخ</label>
+                    <input type="date" id="attendanceDate" required>
+                </div>
+            </div>
+            
+            <div class="attendance-list" id="attendanceList">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+            
+            <button type="submit" class="btn btn-primary">حفظ</button>
+        </form>
+    </div>
+</div>
+
+<!-- نموذج استيراد الحضور -->
+<div id="importModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>استيراد الحضور من Excel</h3>
+        <form id="importForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="importFile">ملف Excel</label>
+                    <input type="file" id="importFile" accept=".xlsx, .xls" required>
+                </div>
+                <div class="form-col">
+                    <label for="importDate">تاريخ الحضور</label>
+                    <input type="date" id="importDate" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> استيراد
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

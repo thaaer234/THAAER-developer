@@ -1,0 +1,216 @@
+<div class="module-header">
+    <h2>إدارة المدرسين</h2>
+    <button class="btn btn-primary" id="addTeacherBtn">
+        <i class="fas fa-plus"></i> إضافة مدرس جديد
+    </button>
+</div>
+
+<div class="tabs">
+    <div class="tab active" data-tab="teachers">المدرسون النشطون</div>
+    <div class="tab" data-tab="inactive">المدرسون غير النشطين</div>
+</div>
+
+<div class="filters">
+    <div class="form-row">
+        <div class="form-col">
+            <select id="subjectFilter" class="form-control">
+                <option value="">جميع المواد</option>
+                <option value="math">الرياضيات</option>
+                <option value="science">العلوم</option>
+                <option value="arabic">اللغة العربية</option>
+                <option value="english">اللغة الإنجليزية</option>
+                <option value="religion">التربية الإسلامية</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <select id="statusFilter" class="form-control">
+                <option value="">جميع الحالات</option>
+                <option value="full-time">دوام كامل</option>
+                <option value="part-time">دوام جزئي</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <input type="text" id="searchInput" class="form-control" placeholder="بحث بالاسم...">
+        </div>
+    </div>
+</div>
+
+<div class="tab-content active" id="teachers-tab">
+    <div class="table-container">
+        <table id="teachersTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>الاسم الكامل</th>
+                    <th>المادة</th>
+                    <th>الصفوف</th>
+                    <th>نوع العقد</th>
+                    <th>الراتب</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tab-content" id="inactive-tab">
+    <div class="table-container">
+        <table id="inactiveTeachersTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>الاسم الكامل</th>
+                    <th>المادة</th>
+                    <th>تاريخ إنهاء العقد</th>
+                    <th>سبب الإنهاء</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- نموذج إضافة/تعديل مدرس -->
+<div id="teacherModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="teacherModalTitle">إضافة مدرس جديد</h3>
+        <form id="teacherForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="teacherName">الاسم الكامل</label>
+                    <input type="text" id="teacherName" required>
+                </div>
+                <div class="form-col">
+                    <label for="teacherPhone">رقم الهاتف</label>
+                    <input type="tel" id="teacherPhone" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="teacherSubject">المادة</label>
+                    <select id="teacherSubject" required>
+                        <option value="">اختر المادة</option>
+                        <option value="math">الرياضيات</option>
+                        <option value="science">العلوم</option>
+                        <option value="arabic">اللغة العربية</option>
+                        <option value="english">اللغة الإنجليزية</option>
+                        <option value="religion">التربية الإسلامية</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="teacherClasses">الصفوف</label>
+                    <select id="teacherClasses" multiple>
+                        <option value="1">الصف الأول</option>
+                        <option value="2">الصف الثاني</option>
+                        <option value="3">الصف الثالث</option>
+                        <option value="4">الصف الرابع</option>
+                        <option value="5">الصف الخامس</option>
+                        <option value="6">الصف السادس</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="contractType">نوع العقد</label>
+                    <select id="contractType" required>
+                        <option value="">اختر نوع العقد</option>
+                        <option value="full-time">دوام كامل</option>
+                        <option value="part-time">دوام جزئي</option>
+                        <option value="hourly">بالساعة</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="teacherSalary">الراتب</label>
+                    <input type="number" id="teacherSalary" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="hireDate">تاريخ التعيين</label>
+                    <input type="date" id="hireDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="teacherId">رقم الهوية</label>
+                    <input type="text" id="teacherId" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="teacherNotes">ملاحظات</label>
+                    <textarea id="teacherNotes" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">حفظ</button>
+        </form>
+    </div>
+</div>
+
+<!-- نموذج إنهاء عقد مدرس -->
+<div id="deactivateModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>إنهاء عقد المدرس</h3>
+        <form id="deactivateForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="endDate">تاريخ إنهاء العقد</label>
+                    <input type="date" id="endDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="deactivateReason">سبب الإنهاء</label>
+                    <select id="deactivateReason" required>
+                        <option value="">اختر السبب</option>
+                        <option value="resignation">استقالة</option>
+                        <option value="termination">إنهاء خدمة</option>
+                        <option value="contract-end">انتهاء العقد</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="deactivateNotes">ملاحظات</label>
+                    <textarea id="deactivateNotes" rows="3"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-danger">تأكيد الإنهاء</button>
+        </form>
+    </div>
+</div>
+
+<!-- نموذج جدول المدرس -->
+<div id="scheduleModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="scheduleModalTitle">جدول المدرس</h3>
+        <div class="table-container">
+            <table id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th>اليوم</th>
+                        <th>الصف</th>
+                        <th>الحصة</th>
+                        <th>الوقت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- سيتم ملؤها بواسطة JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

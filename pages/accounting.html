@@ -1,0 +1,185 @@
+<div class="module-header">
+    <h2>إدارة المحاسبة</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="addIncomeBtn">
+            <i class="fas fa-plus"></i> إضافة دخل
+        </button>
+        <button class="btn btn-danger" id="addExpenseBtn">
+            <i class="fas fa-minus"></i> إضافة مصروف
+        </button>
+    </div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" data-tab="transactions">الحركات المالية</div>
+    <div class="tab" data-tab="reports">التقارير</div>
+</div>
+
+<div class="filters">
+    <div class="form-row">
+        <div class="form-col">
+            <select id="typeFilter" class="form-control">
+                <option value="">جميع الأنواع</option>
+                <option value="income">دخل</option>
+                <option value="expense">مصروف</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <select id="categoryFilter" class="form-control">
+                <option value="">جميع الفئات</option>
+                <option value="tuition">رسوم دراسية</option>
+                <option value="salary">رواتب</option>
+                <option value="rent">إيجار</option>
+                <option value="supplies">قرطاسية</option>
+                <option value="other">أخرى</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <input type="date" id="dateFrom" class="form-control" placeholder="من تاريخ">
+        </div>
+        <div class="form-col">
+            <input type="date" id="dateTo" class="form-control" placeholder="إلى تاريخ">
+        </div>
+    </div>
+</div>
+
+<div class="tab-content active" id="transactions-tab">
+    <div class="table-container">
+        <table id="transactionsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>التاريخ</th>
+                    <th>النوع</th>
+                    <th>الفئة</th>
+                    <th>المبلغ</th>
+                    <th>الوصف</th>
+                    <th>مسجل بواسطة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tab-content" id="reports-tab">
+    <div class="report-cards">
+        <div class="card">
+            <div class="card-title">إجمالي الدخل</div>
+            <div class="card-value" id="totalIncome">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">إجمالي المصروفات</div>
+            <div class="card-value" id="totalExpenses">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">صافي الربح</div>
+            <div class="card-value" id="netProfit">0</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="accountingChart"></canvas>
+    </div>
+</div>
+
+<!-- نموذج إضافة دخل -->
+<div id="incomeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>إضافة حركة دخل</h3>
+        <form id="incomeForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="incomeDate">التاريخ</label>
+                    <input type="date" id="incomeDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="incomeCategory">الفئة</label>
+                    <select id="incomeCategory" required>
+                        <option value="">اختر الفئة</option>
+                        <option value="tuition">رسوم دراسية</option>
+                        <option value="registration">رسوم تسجيل</option>
+                        <option value="book">بيع كتب</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="incomeAmount">المبلغ</label>
+                    <input type="number" id="incomeAmount" required>
+                </div>
+                <div class="form-col">
+                    <label for="incomeStudent">الطالب (اختياري)</label>
+                    <select id="incomeStudent">
+                        <option value="">اختر الطالب</option>
+                        <!-- سيتم ملؤها بواسطة JavaScript -->
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="incomeDescription">الوصف</label>
+                    <textarea id="incomeDescription" rows="3" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">حفظ</button>
+        </form>
+    </div>
+</div>
+
+<!-- نموذج إضافة مصروف -->
+<div id="expenseModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>إضافة حركة مصروف</h3>
+        <form id="expenseForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="expenseDate">التاريخ</label>
+                    <input type="date" id="expenseDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="expenseCategory">الفئة</label>
+                    <select id="expenseCategory" required>
+                        <option value="">اختر الفئة</option>
+                        <option value="salary">رواتب</option>
+                        <option value="rent">إيجار</option>
+                        <option value="supplies">قرطاسية</option>
+                        <option value="electricity">كهرباء</option>
+                        <option value="water">مياه</option>
+                        <option value="maintenance">صيانة</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="expenseAmount">المبلغ</label>
+                    <input type="number" id="expenseAmount" required>
+                </div>
+                <div class="form-col">
+                    <label for="expenseRecipient">المستلم</label>
+                    <input type="text" id="expenseRecipient">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="expenseDescription">الوصف</label>
+                    <textarea id="expenseDescription" rows="3" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-danger">حفظ</button>
+        </form>
+    </div>
+</div>

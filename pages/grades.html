@@ -1,0 +1,185 @@
+<div class="module-header">
+    <h2>نظام العلامات والتقييم</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="addGradeBtn">
+            <i class="fas fa-plus"></i> إضافة تقييم
+        </button>
+        <button class="btn btn-secondary" id="importGradesBtn">
+            <i class="fas fa-file-import"></i> استيراد من Excel
+        </button>
+        <button class="btn btn-info" id="exportGradesBtn">
+            <i class="fas fa-file-export"></i> تصدير إلى Excel
+        </button>
+    </div>
+</div>
+
+<div class="filters">
+    <div class="form-row">
+        <div class="form-col">
+            <select id="classFilter" class="form-control">
+                <option value="">جميع الصفوف</option>
+                <option value="1">الصف الأول</option>
+                <option value="2">الصف الثاني</option>
+                <option value="3">الصف الثالث</option>
+                <option value="4">الصف الرابع</option>
+                <option value="5">الصف الخامس</option>
+                <option value="6">الصف السادس</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <select id="subjectFilter" class="form-control">
+                <option value="">جميع المواد</option>
+                <option value="math">الرياضيات</option>
+                <option value="science">العلوم</option>
+                <option value="arabic">اللغة العربية</option>
+                <option value="english">اللغة الإنجليزية</option>
+                <option value="religion">التربية الإسلامية</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <select id="examTypeFilter" class="form-control">
+                <option value="">جميع أنواع التقييم</option>
+                <option value="quiz">سبر</option>
+                <option value="monthly">شهري</option>
+                <option value="midterm">منتصف الفصل</option>
+                <option value="final">نهائي</option>
+            </select>
+        </div>
+        <div class="form-col">
+            <button class="btn btn-info" id="filterGradesBtn">
+                <i class="fas fa-filter"></i> تصفية
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <table id="gradesTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>الطالب</th>
+                <th>الصف</th>
+                <th>المادة</th>
+                <th>نوع التقييم</th>
+                <th>العلامة</th>
+                <th>التاريخ</th>
+                <th>ملاحظات</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم ملؤها بواسطة JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<!-- نموذج إضافة علامة -->
+<div id="gradeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>إضافة تقييم جديد</h3>
+        <form id="gradeForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradeClass">الصف</label>
+                    <select id="gradeClass" required>
+                        <option value="">اختر الصف</option>
+                        <option value="1">الصف الأول</option>
+                        <option value="2">الصف الثاني</option>
+                        <option value="3">الصف الثالث</option>
+                        <option value="4">الصف الرابع</option>
+                        <option value="5">الصف الخامس</option>
+                        <option value="6">الصف السادس</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="gradeStudent">الطالب</label>
+                    <select id="gradeStudent" required>
+                        <option value="">اختر الطالب</option>
+                        <!-- سيتم ملؤها بواسطة JavaScript -->
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradeSubject">المادة</label>
+                    <select id="gradeSubject" required>
+                        <option value="">اختر المادة</option>
+                        <option value="math">الرياضيات</option>
+                        <option value="science">العلوم</option>
+                        <option value="arabic">اللغة العربية</option>
+                        <option value="english">اللغة الإنجليزية</option>
+                        <option value="religion">التربية الإسلامية</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="gradeType">نوع التقييم</label>
+                    <select id="gradeType" required>
+                        <option value="">اختر نوع التقييم</option>
+                        <option value="quiz">سبر</option>
+                        <option value="monthly">شهري</option>
+                        <option value="midterm">منتصف الفصل</option>
+                        <option value="final">نهائي</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradeDate">تاريخ التقييم</label>
+                    <input type="date" id="gradeDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="gradeMax">العلامة الكاملة</label>
+                    <input type="number" id="gradeMax" value="20" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradeScore">العلامة المتحصل عليها</label>
+                    <input type="number" id="gradeScore" step="0.01" required>
+                </div>
+                <div class="form-col">
+                    <label for="gradePercentage">النسبة المئوية</label>
+                    <input type="text" id="gradePercentage" readonly>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradeNotes">ملاحظات</label>
+                    <textarea id="gradeNotes" rows="2"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">حفظ</button>
+        </form>
+    </div>
+</div>
+
+<!-- نموذج استيراد العلامات -->
+<div id="importGradesModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>استيراد العلامات من Excel</h3>
+        <form id="importGradesForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="gradesFile">ملف Excel</label>
+                    <input type="file" id="gradesFile" accept=".xlsx, .xls" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> استيراد
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

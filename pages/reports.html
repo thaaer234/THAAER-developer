@@ -1,0 +1,218 @@
+<div class="module-header">
+    <h2>التقارير والإحصائيات</h2>
+    <div class="header-actions">
+        <button class="btn btn-primary" id="printReportBtn">
+            <i class="fas fa-print"></i> طباعة التقرير
+        </button>
+        <button class="btn btn-secondary" id="exportReportBtn">
+            <i class="fas fa-file-export"></i> تصدير إلى PDF
+        </button>
+    </div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" data-tab="financial">التقارير المالية</div>
+    <div class="tab" data-tab="students">تقارير الطلاب</div>
+    <div class="tab" data-tab="teachers">تقارير المدرسين</div>
+    <div class="tab" data-tab="attendance">تقارير الحضور</div>
+</div>
+
+<div class="filters">
+    <div class="form-row">
+        <div class="form-col">
+            <select id="reportType" class="form-control">
+                <option value="monthly">شهري</option>
+                <option value="quarterly">ربع سنوي</option>
+                <option value="yearly">سنوي</option>
+                <option value="custom">مخصص</option>
+            </select>
+        </div>
+        <div class="form-col" id="monthCol">
+            <select id="reportMonth" class="form-control">
+                <option value="1">يناير</option>
+                <option value="2">فبراير</option>
+                <option value="3">مارس</option>
+                <option value="4">أبريل</option>
+                <option value="5">مايو</option>
+                <option value="6">يونيو</option>
+                <option value="7">يوليو</option>
+                <option value="8">أغسطس</option>
+                <option value="9">سبتمبر</option>
+                <option value="10">أكتوبر</option>
+                <option value="11">نوفمبر</option>
+                <option value="12">ديسمبر</option>
+            </select>
+        </div>
+        <div class="form-col" id="yearCol">
+            <select id="reportYear" class="form-control">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </select>
+        </div>
+        <div class="form-col" id="customDateCol" style="display: none;">
+            <div class="form-row">
+                <div class="form-col">
+                    <input type="date" id="reportDateFrom" class="form-control" placeholder="من تاريخ">
+                </div>
+                <div class="form-col">
+                    <input type="date" id="reportDateTo" class="form-control" placeholder="إلى تاريخ">
+                </div>
+            </div>
+        </div>
+        <div class="form-col">
+            <button class="btn btn-info" id="generateReportBtn">
+                <i class="fas fa-chart-line"></i> توليد التقرير
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="tab-content active" id="financial-tab">
+    <div class="report-summary">
+        <div class="card">
+            <div class="card-title">إجمالي الدخل</div>
+            <div class="card-value" id="financialIncome">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">إجمالي المصروفات</div>
+            <div class="card-value" id="financialExpenses">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">صافي الربح</div>
+            <div class="card-value" id="financialProfit">0</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="financialChart"></canvas>
+    </div>
+    
+    <div class="table-container">
+        <table id="financialTable">
+            <thead>
+                <tr>
+                    <th>التاريخ</th>
+                    <th>نوع الحركة</th>
+                    <th>الفئة</th>
+                    <th>المبلغ</th>
+                    <th>الوصف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tab-content" id="students-tab">
+    <div class="report-summary">
+        <div class="card">
+            <div class="card-title">إجمالي الطلاب</div>
+            <div class="card-value" id="totalStudents">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">طلاب جدد</div>
+            <div class="card-value" id="newStudents">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">طلاب مسحوبين</div>
+            <div class="card-value" id="withdrawnStudents">0</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="studentsChart"></canvas>
+    </div>
+    
+    <div class="table-container">
+        <table id="studentsReportTable">
+            <thead>
+                <tr>
+                    <th>الصف</th>
+                    <th>عدد الطلاب</th>
+                    <th>طلاب جدد</th>
+                    <th>مسحوبين</th>
+                    <th>نسبة الحضور</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tab-content" id="teachers-tab">
+    <div class="report-summary">
+        <div class="card">
+            <div class="card-title">إجمالي المدرسين</div>
+            <div class="card-value" id="totalTeachers">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">مدرسين جدد</div>
+            <div class="card-value" id="newTeachers">0</div>
+        </div>
+        <div class="card">
+            <div class="card-title">مدرسين مغادرين</div>
+            <div class="card-value" id="leftTeachers">0</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="teachersChart"></canvas>
+    </div>
+    
+    <div class="table-container">
+        <table id="teachersReportTable">
+            <thead>
+                <tr>
+                    <th>المادة</th>
+                    <th>عدد المدرسين</th>
+                    <th>إجمالي الرواتب</th>
+                    <th>متوسط الخبرة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="tab-content" id="attendance-tab">
+    <div class="report-summary">
+        <div class="card">
+            <div class="card-title">نسبة حضور الطلاب</div>
+            <div class="card-value" id="studentAttendanceRate">0%</div>
+        </div>
+        <div class="card">
+            <div class="card-title">نسبة حضور الموظفين</div>
+            <div class="card-value" id="employeeAttendanceRate">0%</div>
+        </div>
+        <div class="card">
+            <div class="card-title">أكثر طالب غياباً</div>
+            <div class="card-value" id="mostAbsentStudent">لا يوجد</div>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="attendanceChart"></canvas>
+    </div>
+    
+    <div class="table-container">
+        <table id="attendanceReportTable">
+            <thead>
+                <tr>
+                    <th>الصف</th>
+                    <th>عدد الطلاب</th>
+                    <th>حضور</th>
+                    <th>غياب</th>
+                    <th>نسبة الحضور</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الطلاب</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+<div class="module-header">
+    <h2>إدارة الطلاب</h2>
+    <button class="btn btn-primary" id="addStudentBtn">
+        <i class="fas fa-plus"></i> إضافة طالب جديد
+    </button>
+</div>
+
+<div class="tabs">
+    <div class="tab active" data-tab="students">الطلاب المسجلين</div>
+    <div class="tab" data-tab="withdrawn">الطلاب المسحوبين</div>
+    <div class="tab" data-tab="transferred">الطلاب المنقولين</div>
+</div>
+
+<!-- نموذج إضافة طالب جديد (محدث) -->
+<div id="studentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="studentModalTitle">إضافة طالب جديد</h3>
+        <form id="studentForm">
+            <!-- المعلومات الأساسية -->
+            <h4 class="section-title">المعلومات الأساسية</h4>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="fullName" class="required-field">الاسم الكامل للطالب</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-col">
+                    <label for="gender" class="required-field">الجنس</label>
+                    <select id="gender" required>
+                        <option value="">اختر الجنس</option>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="birthDate" class="required-field">تاريخ الميلاد</label>
+                    <input type="date" id="birthDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="studentId" class="required-field">رقم الطالب</label>
+                    <input type="text" id="studentId" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="nationality" class="required-field">الجنسية</label>
+                    <input type="text" id="nationality" required>
+                </div>
+                <div class="form-col">
+                    <label for="registrationDate" class="required-field">تاريخ التسجيل</label>
+                    <input type="date" id="registrationDate" required>
+                </div>
+            </div>
+
+            <!-- معلومات الأب -->
+            <h4 class="section-title">معلومات ولي الأمر (الأب)</h4>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="fatherName" class="required-field">اسم الأب</label>
+                    <input type="text" id="fatherName" required>
+                </div>
+                <div class="form-col">
+                    <label for="fatherJob">عمل الأب</label>
+                    <input type="text" id="fatherJob">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="fatherPhone" class="required-field">رقم هاتف الأب</label>
+                    <input type="tel" id="fatherPhone" required>
+                </div>
+            </div>
+
+            <!-- معلومات الأم -->
+            <h4 class="section-title">معلومات ولي الأمر (الأم)</h4>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="motherName"class="required-field">اسم الأم</label>
+                    <input type="text" id="motherName">
+                </div>
+                <div class="form-col">
+                    <label for="motherJob">عمل الأم</label>
+                    <input type="text" id="motherJob">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="motherPhone"class="required-field">رقم هاتف الأم</label>
+                    <input type="tel" id="motherPhone">
+                </div>
+            </div>
+
+            <!-- معلومات السكن -->
+            <h4 class="section-title">معلومات السكن</h4>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="address" class="required-field">العنوان السكني</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                <div class="form-col">
+                    <label for="landlinePhone"class="required-field">رقم الهاتف الأرضي</label>
+                    <input type="tel" id="landlinePhone">
+                </div>
+            </div>
+
+            <!-- معلومات الدراسة -->
+            <h4 class="section-title">معلومات الدراسة السابقة</h4>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="previousSchool">المدرسة السابقة</label>
+                    <input type="text" id="previousSchool">
+                </div>
+                <div class="form-col">
+                    <label for="elementarySchool">مدرسة الابتدائية</label>
+                    <input type="text" id="elementarySchool">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="howKnewUs" class="required-field">كيف عرفت المعهد؟</label>
+                    <select id="howKnewUs">
+                        <option value="">اختر طريقة التعرف</option>
+                        <option value="friend">صديق</option>
+                        <option value="social">مواقع التواصل</option>
+                        <option value="ad">إعلان</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="notes">ملاحظات</label>
+                    <textarea id="notes"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">إلغاء</button>
+                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- نموذج نقل طالب -->
+<div id="transferModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>نقل طالب إلى صف آخر</h3>
+        <form id="transferForm">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="currentClass">الصف الحالي</label>
+                    <input type="text" id="currentClass" readonly>
+                </div>
+                <div class="form-col">
+                    <label for="newClass">الصف الجديد</label>
+                    <select id="newClass" required>
+                        <option value="">اختر الصف الجديد</option>
+                        <option value="1">الصف الأول</option>
+                        <option value="2">الصف الثاني</option>
+                        <!-- باقي الصفوف -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="transferDate">تاريخ النقل</label>
+                    <input type="date" id="transferDate" required>
+                </div>
+                <div class="form-col">
+                    <label for="transferReason">سبب النقل</label>
+                    <select id="transferReason">
+                        <option value="">اختر السبب</option>
+                        <option value="level">تقدم في المستوى</option>
+                        <option value="request">طلب ولي الأمر</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="transferNotes">ملاحظات</label>
+                    <textarea id="transferNotes" rows="2"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">تأكيد النقل</button>
+        </form>
+    </div>
+</div>
+<script>
+  // فتح النافذة المنبثقة عند النقر على إضافة طالب جديد
+    document.getElementById('addStudentBtn').addEventListener('click', function () {
+        document.getElementById('studentModal').style.display = 'block';
+        document.getElementById('studentModalTitle').textContent = 'إضافة طالب جديد';
+        document.getElementById('studentForm').reset();
+    }); 
+
+    // إغلاق النافذة المنبثقة
+    document.querySelector('.close').addEventListener('click', function () {
+        document.getElementById('studentModal').style.display = 'none';
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+        document.getElementById('studentModal').style.display = 'none';
+    });
+
+    // إغلاق النافذة عند النقر خارجها
+    window.addEventListener('click', function (event) {
+        if (event.target === document.getElementById('studentModal')) {
+            document.getElementById('studentModal').style.display = 'none';
+        }
+    });
+
+    // معالجة إرسال النموذج
+    document.getElementById('studentForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // هنا يمكنك إضافة كود لحفظ البيانات
+        alert('تم حفظ بيانات الطالب بنجاح');
+        document.getElementById('studentModal').style.display = 'none';
+    }); 
+</script>
+</body>
+</html>
